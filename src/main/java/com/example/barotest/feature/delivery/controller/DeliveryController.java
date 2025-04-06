@@ -1,5 +1,11 @@
 package com.example.barotest.feature.delivery.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController("/api/v1/delivery")
 public class DeliveryController {
 
 //     배달 조회
@@ -10,4 +16,13 @@ public class DeliveryController {
 //    배달 주문 수정 (도착지 주소 변경)
 //    1.	사용자로부터 도착지 주소를 요청 받아 처리합니다.
 //    2.	사용자가 변경 가능한 배달인 경우에만 수정이 가능합니다.
+    @GetMapping("/{id}")
+    public void getDelivery(@PathVariable int id) {
+
+    }
+
+    @PatchMapping("/{id}")
+    public void updateAddress(@PathVariable int id) {
+
+    }
 }
