@@ -22,6 +22,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    annotationProcessor("org.projectlombok:lombok")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
