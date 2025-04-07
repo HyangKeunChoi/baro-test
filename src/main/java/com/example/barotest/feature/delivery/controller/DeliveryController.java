@@ -1,13 +1,16 @@
 package com.example.barotest.feature.delivery.controller;
 
 import com.example.barotest.feature.delivery.service.DeliveryService;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Validated
 @RestController("/api/v1/delivery")
 @RequiredArgsConstructor
 public class DeliveryController{
@@ -22,8 +25,14 @@ public class DeliveryController{
     @GetMapping("/{id}")
     public void getDelivery(
         @PathVariable int id,
-        @RequestParam String searchStartDate,
-        @RequestParam String searchEndDate
+
+        @RequestParam
+        @NotBlank(message = "시작일은 비어있을 수 없습니다.")
+        String searchStartDate,
+
+        @RequestParam
+        @NotBlank(message = "종료일은 비어 있을수 없습니다.")
+        String searchEndDate
     ) {
         deliveryService.getDelivery(id);
     }
