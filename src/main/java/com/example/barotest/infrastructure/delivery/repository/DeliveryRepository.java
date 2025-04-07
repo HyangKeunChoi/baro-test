@@ -1,6 +1,6 @@
-package com.example.barotest.feature.delivery.repository;
+package com.example.barotest.infrastructure.delivery.repository;
 
-import com.example.barotest.feature.delivery.domain.DeliveryEntity;
+import com.example.barotest.infrastructure.delivery.DeliveryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DeliveryRepository extends JpaRepository<DeliveryEntity, Long> {
