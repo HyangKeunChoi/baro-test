@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
@@ -12,7 +14,11 @@ public class DeliveryService{
 
     private final IDeliveryRepository deliveryRepository;
 
-    public void getDelivery(int id) {
+    public void getDelivery(
+        Long userId,
+        LocalDate searchStartDate,
+        LocalDate searchEndDate
+    ) {
 
     }
 }

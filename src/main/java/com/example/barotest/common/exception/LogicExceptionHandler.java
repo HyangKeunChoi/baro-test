@@ -5,6 +5,7 @@ import com.example.barotest.common.response.ErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,5 +38,20 @@ public class LogicExceptionHandler {
     public ResponseEntity<CommonErrorResponse> handleBaseException(BaseException e) {
         return ResponseEntity.status(e.getErrorInfo().getErrorCode())
                 .body(new CommonErrorResponse(e.getErrorInfo()));
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    public ResponseEntity<CommonErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+
+        StringBuilder errorMessage = new StringBuilder();
+        e.getBindingResult().getAllErrors().forEach(error -> {
+            errorMessage.append(error.getDefaultMessage()).append("\n");
+        });
+
+        log.error(errorMessage.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new CommonErrorResponse(ErrorInfo.INVALID_PARAMETER_ERROR));
     }
 }

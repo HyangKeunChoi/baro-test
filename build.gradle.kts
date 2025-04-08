@@ -22,6 +22,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     runtimeOnly("com.h2database:h2")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     annotationProcessor("org.projectlombok:lombok")
     implementation("org.springframework.security:spring-security-crypto")

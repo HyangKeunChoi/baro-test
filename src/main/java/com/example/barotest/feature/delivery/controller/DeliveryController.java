@@ -1,5 +1,7 @@
 package com.example.barotest.feature.delivery.controller;
 
+import com.example.barotest.common.argument.User;
+import com.example.barotest.common.validator.SearchDateRangeValid;
 import com.example.barotest.feature.delivery.service.DeliveryService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
 
 @Validated
 @RestController("/api/v1/delivery")
@@ -22,19 +26,20 @@ public class DeliveryController{
 //    (또한, 조회 가능한 기간은 최대 3일 입니다. 그 외의 조건도 조회시에 필요하다고 생각되시면 추가해주세요.)
 //    2.	기간 내에 사용자가 주문한 배달의 리스트를 제공합니다.
 
-    @GetMapping("/{id}")
+    @GetMapping
     public void getDelivery(
-        @PathVariable int id,
+        @User Long userId,
 
         @RequestParam
         @NotBlank(message = "시작일은 비어있을 수 없습니다.")
-        String searchStartDate,
+        LocalDate searchStartDate,
 
         @RequestParam
         @NotBlank(message = "종료일은 비어 있을수 없습니다.")
-        String searchEndDate
+        @SearchDateRangeValid
+        LocalDate searchEndDate
     ) {
-        deliveryService.getDelivery(id);
+        deliveryService.getDelivery(userId, searchStartDate, searchEndDate);
     }
 
     //    배달 주문 수정 (도착지 주소 변경)

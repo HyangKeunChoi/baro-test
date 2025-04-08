@@ -1,16 +1,18 @@
 package com.example.barotest.domain.member;
 
 import com.example.barotest.common.exception.PasswordLengthException;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 public class Member {
-    Long id;
+    Long userId;
     String password;
     String name;
 
-    public Member(Long id, String password, String name) {
-        this.id = id;
+    @Builder
+    public Member(Long userId, String password, String name) {
+        this.userId = userId;
         this.password = password;
         this.name = name;
     }
