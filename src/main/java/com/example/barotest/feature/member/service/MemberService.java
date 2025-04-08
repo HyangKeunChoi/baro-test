@@ -1,9 +1,9 @@
 package com.example.barotest.feature.member.service;
 
 import com.example.barotest.config.PasswordConfig;
+import com.example.barotest.domain.member.Member;
 import com.example.barotest.feature.member.controller.dto.MemberSignupRequest;
 import com.example.barotest.infrastructure.member.repository.IMemberRepository;
-import com.example.barotest.infrastructure.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,13 @@ public class MemberService {
     private final PasswordConfig passwordConfig;
 
     public void signup(MemberSignupRequest memberRequest) {
+        Member member = new Member(
+            memberRequest.id(),
+            memberRequest.password(),
+            memberRequest.name()
+        );
 
+        member.validate();
     }
 
     void validation() {

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public abstract class BaseException extends RuntimeException {
-    private ErrorInfo errorInfo;
+    private final ErrorInfo errorInfo;
 
     public BaseException(ErrorInfo errorInfo) {
         super(errorInfo.getErrorMsg());

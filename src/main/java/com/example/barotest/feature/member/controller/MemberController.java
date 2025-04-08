@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
 
-    // 회원가입
-    // 1.	회원가입시 필요한 정보는 ID, 비밀번호, 사용자 이름 입니다.
-    // 2.	비밀번호는 영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상으로
-    //		12자리 이상의 문자열로 생성해야 합니다.
     @PostMapping("/signup")
     public void signup(
         @Validated @RequestBody MemberSignupRequest memberRequest
