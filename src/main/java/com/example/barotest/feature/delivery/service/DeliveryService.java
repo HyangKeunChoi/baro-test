@@ -37,7 +37,6 @@ public class DeliveryService{
         DeliveryUpdateRequest deliveryUpdateRequest
     ) {
         Delivery delivery = deliveryRepository.findById(id);
-        // TODO : 배달 주소 변경 로직 추가
         Address newAddress = Address.builder()
             .street(deliveryUpdateRequest.getStreet())
             .city(deliveryUpdateRequest.getCity())

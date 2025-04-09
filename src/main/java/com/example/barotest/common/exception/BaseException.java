@@ -11,9 +11,4 @@ public abstract class BaseException extends RuntimeException {
         super(errorInfo.getErrorMsg());
         this.errorInfo = errorInfo;
     }
-
-    public BaseException(String message, ErrorInfo errorInfo) {
-        super(message);
-        this.errorInfo = errorInfo;
-    }
 }

@@ -1,6 +1,5 @@
 package com.example.barotest.infrastructure.delivery;
 
-import com.example.barotest.domain.delivery.Address;
 import com.example.barotest.domain.delivery.Delivery;
 import com.example.barotest.domain.delivery.Status;
 import com.example.barotest.infrastructure.AbstractEntity;
@@ -28,7 +27,7 @@ public class DeliveryEntity extends AbstractEntity {
     private Status status;
 
     @Embedded
-    private Address deliveryAddress;
+    private EAddress address;
 
     public DeliveryEntity from(Delivery delivery) {
         return new DeliveryEntity(
@@ -36,7 +35,10 @@ public class DeliveryEntity extends AbstractEntity {
             delivery.getDeliveryName(),
             delivery.getUserId(),
             delivery.getStatus(),
-            delivery.getDeliveryAddress()
+            new EAddress(
+                delivery.getDeliveryAddress().getStreet(),
+                delivery.getDeliveryAddress().getCity()
+            )
         );
     }
 
@@ -46,7 +48,7 @@ public class DeliveryEntity extends AbstractEntity {
             .deliveryName(this.deliveryName)
             .userId(this.userId)
             .status(this.status)
-            .deliveryAddress(this.deliveryAddress)
+            .deliveryAddress(this.address.toModel())
             .build();
     }
 }
