@@ -9,23 +9,15 @@ import java.time.temporal.ChronoUnit;
 public class SearchDateValidator implements ConstraintValidator<SearchDateRangeValid, String> {
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        if (value == null || value.isEmpty()) {
-            return true;
-        }
+    public boolean isValid(LocalDate value, ConstraintValidatorContext constraintValidatorContext) {
+        LocalDate startDate = LocalDate.now(); // 또는 요청에서 받은 startDate를 사용
+        LocalDate endDate = value;
 
-        try {
-            LocalDate startDate = LocalDate.parse(value.split(",")[0].trim());
-            LocalDate endDate = LocalDate.parse(value.split(",")[1].trim());
-
-            if (startDate.isAfter(endDate)) {
-                return false;
-            }
-
-            long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-            return daysBetween <= 3;
-        } catch (Exception e) {
+        if (startDate.isAfter(endDate)) {
             return false;
         }
+
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        return daysBetween <= 3;
     }
 }

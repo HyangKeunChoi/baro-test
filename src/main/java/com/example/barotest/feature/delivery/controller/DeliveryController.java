@@ -5,7 +5,7 @@ import com.example.barotest.common.validator.SearchDateRangeValid;
 import com.example.barotest.domain.delivery.Delivery;
 import com.example.barotest.feature.delivery.controller.dto.DeliveryUpdateRequest;
 import com.example.barotest.feature.delivery.service.DeliveryService;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,11 +32,11 @@ public class DeliveryController {
         @User String userId,
 
         @RequestParam
-        @NotBlank(message = "시작일은 비어있을 수 없습니다.")
+        @NotNull(message = "시작일은 null 일 수 없습니다.")
         LocalDate searchStartDate,
 
         @RequestParam
-        @NotBlank(message = "종료일은 비어 있을수 없습니다.")
+        @NotNull(message = "종료일은 null 일 수 없습니다.")
         @SearchDateRangeValid
         LocalDate searchEndDate
     ) {
