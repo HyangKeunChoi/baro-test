@@ -1,14 +1,10 @@
 package com.example.barotest.infrastructure.member.repository;
 
-import com.example.barotest.common.exception.BaseException;
 import com.example.barotest.common.exception.UserNotFoundException;
-import com.example.barotest.common.response.ErrorInfo;
 import com.example.barotest.domain.member.Member;
 import com.example.barotest.infrastructure.member.MemberEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 @Repository
@@ -17,7 +13,7 @@ public class MemberRepositoryImpl implements IMemberRepository {
 
     @Override
     public Member save(Member member) {
-        return memberJpaRepository.save(MemberEntity.from(member)).toModel();
+        return memberJpaRepository.save(new MemberEntity().from(member)).toModel();
     }
 
     @Override

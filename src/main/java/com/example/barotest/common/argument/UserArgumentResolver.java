@@ -26,7 +26,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterType().equals(String.class)
-                && parameter.hasParameterAnnotation(User.class);
+            && parameter.hasParameterAnnotation(User.class);
     }
 
     @Override
@@ -36,10 +36,10 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         try {
             SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(accessToken)
-                    .getBody();
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody();
             return claims.get("userId", Long.class);
         } catch (ExpiredJwtException e) {
             throw new Exception("Token has expired", e);

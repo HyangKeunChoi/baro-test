@@ -22,7 +22,7 @@ import java.util.List;
 @Validated
 @RestController("/api/v1/delivery")
 @RequiredArgsConstructor
-public class DeliveryController{
+public class DeliveryController {
 
     private final DeliveryService deliveryService;
 
@@ -47,7 +47,7 @@ public class DeliveryController{
         return ResponseEntity.ok().body(deliveryService.getDeliveries(userId, searchStartDate, searchEndDate));
     }
 
-//    배달 주문 수정 (도착지 주소 변경)
+    //    배달 주문 수정 (도착지 주소 변경)
 //    1.	사용자로부터 도착지 주소를 요청 받아 처리합니다.
 //    2.	사용자가 변경 가능한 배달인 경우에만 수정이 가능합니다.
     @PatchMapping("/{id}")

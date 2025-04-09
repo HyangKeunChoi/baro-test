@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = SearchDateValidator.class)
 public @interface SearchDateRangeValid {
     String message() default "시작일보다 클수 없고 최대 3일까지만 초회 가능합니다.";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

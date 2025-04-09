@@ -1,8 +1,6 @@
 package com.example.barotest.feature.member.service;
 
 import com.example.barotest.common.exception.DuplicateUserIdException;
-import com.example.barotest.common.exception.UserNotFoundException;
-import com.example.barotest.config.PasswordConfig;
 import com.example.barotest.domain.member.Member;
 import com.example.barotest.feature.member.controller.dto.MemberSigninRequest;
 import com.example.barotest.feature.member.controller.dto.MemberSignupRequest;
@@ -22,9 +20,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 
-import static com.example.barotest.common.response.ErrorInfo.DUPLICATE_USER_ID_ERROR;
-import static com.example.barotest.common.response.ErrorInfo.USER_NOT_FOUND_ERROR;
-
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
@@ -39,10 +34,10 @@ public class MemberService {
     @Transactional
     public Long signup(MemberSignupRequest memberRequest) {
         Member member = Member.builder()
-                .userId(memberRequest.userId())
-                .password(memberRequest.password())
-                .name(memberRequest.name())
-                .build();
+            .userId(memberRequest.userId())
+            .password(memberRequest.password())
+            .name(memberRequest.name())
+            .build();
 
         validationMember(member);
         member.validate();
@@ -68,9 +63,9 @@ public class MemberService {
 
     public String signin(MemberSigninRequest memberRequest) {
         Member signinMember = Member.builder()
-                .userId(memberRequest.id())
-                .password(encodePassword(memberRequest.password()))
-                .build();
+            .userId(memberRequest.id())
+            .password(encodePassword(memberRequest.password()))
+            .build();
         Member member = memberRepository.findByUserIdAndPassword(signinMember.getUserId(), signinMember.getPassword());
 
         return generateJwtToken(member.getUserId());
@@ -83,10 +78,10 @@ public class MemberService {
         claims.put("userId", userId);
 
         return Jwts.builder()
-                .signWith(key)
-                .addClaims(claims)
-                .setIssuedAt(new Date())
-                .setExpiration(expiredAt)
-                .compact();
+            .signWith(key)
+            .addClaims(claims)
+            .setIssuedAt(new Date())
+            .setExpiration(expiredAt)
+            .compact();
     }
 }

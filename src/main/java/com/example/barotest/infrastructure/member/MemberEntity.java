@@ -16,14 +16,16 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId;
     private String password;
     private String name;
 
-    public static MemberEntity from(Member member) {
+    public MemberEntity from(Member member) {
         return new MemberEntity(
-                member.getUserId(),
-                member.getPassword(),
-                member.getName()
+            member.getId(),
+            member.getUserId(),
+            member.getPassword(),
+            member.getName()
         );
     }
 

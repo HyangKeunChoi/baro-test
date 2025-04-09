@@ -7,10 +7,12 @@ import java.util.List;
 
 public interface IDeliveryRepository {
     Delivery findById(Long id);
+
     List<Delivery> findByUserIdAndCreatedAtBetween(
         Long userId,
         LocalDate searchStartDate,
         LocalDate searchEndDate
     );
+
     Delivery save(Delivery delivery);
 }

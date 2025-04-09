@@ -21,8 +21,8 @@ public class EAddress {
 
     public Address toModel() {
         return Address.builder()
-                .street(this.street)
-                .city(this.city)
-                .build();
+            .street(this.street)
+            .city(this.city)
+            .build();
     }
 }

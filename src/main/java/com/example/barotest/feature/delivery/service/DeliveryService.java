@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
-public class DeliveryService{
+public class DeliveryService {
 
     private final IDeliveryRepository deliveryRepository;
 
