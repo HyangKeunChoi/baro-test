@@ -71,8 +71,7 @@ public class MemberService {
                 .userId(memberRequest.id())
                 .password(encodePassword(memberRequest.password()))
                 .build();
-        Member member = memberRepository.findByUserIdAndPassword(signinMember.getUserId(), signinMember.getPassword())
-                .orElseThrow(UserNotFoundException::new);
+        Member member = memberRepository.findByUserIdAndPassword(signinMember.getUserId(), signinMember.getPassword());
 
         return generateJwtToken(member.getUserId());
     }

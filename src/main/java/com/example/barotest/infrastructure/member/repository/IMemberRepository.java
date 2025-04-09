@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface IMemberRepository {
     Member save(Member member);
     Boolean existsByUserId(Long id);
-    Optional<Member> findByUserIdAndPassword(Long id, String password);
+    Member findByUserIdAndPassword(Long id, String password);
 }

@@ -2,17 +2,22 @@ package com.example.barotest.feature.delivery.controller;
 
 import com.example.barotest.common.argument.User;
 import com.example.barotest.common.validator.SearchDateRangeValid;
+import com.example.barotest.domain.delivery.Delivery;
+import com.example.barotest.feature.delivery.controller.dto.DeliveryUpdateRequest;
 import com.example.barotest.feature.delivery.service.DeliveryService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Validated
 @RestController("/api/v1/delivery")
@@ -27,7 +32,7 @@ public class DeliveryController{
 //    2.	기간 내에 사용자가 주문한 배달의 리스트를 제공합니다.
 
     @GetMapping
-    public void getDelivery(
+    public ResponseEntity<List<Delivery>> getDelivery(
         @User Long userId,
 
         @RequestParam
@@ -39,14 +44,18 @@ public class DeliveryController{
         @SearchDateRangeValid
         LocalDate searchEndDate
     ) {
-        deliveryService.getDelivery(userId, searchStartDate, searchEndDate);
+        return ResponseEntity.ok().body(deliveryService.getDeliveries(userId, searchStartDate, searchEndDate));
     }
 
-    //    배달 주문 수정 (도착지 주소 변경)
+//    배달 주문 수정 (도착지 주소 변경)
 //    1.	사용자로부터 도착지 주소를 요청 받아 처리합니다.
 //    2.	사용자가 변경 가능한 배달인 경우에만 수정이 가능합니다.
     @PatchMapping("/{id}")
-    public void updateAddress(@PathVariable int id) {
-
+    public ResponseEntity updateAddress(
+        @PathVariable Long id,
+        @RequestBody DeliveryUpdateRequest deliveryUpdateRequest
+    ) {
+        deliveryService.updateAddress(id, deliveryUpdateRequest);
+        return ResponseEntity.ok().build();
     }
 }

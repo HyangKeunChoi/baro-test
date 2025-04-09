@@ -1,5 +1,8 @@
 package com.example.barotest.infrastructure.member.repository;
 
+import com.example.barotest.common.exception.BaseException;
+import com.example.barotest.common.exception.UserNotFoundException;
+import com.example.barotest.common.response.ErrorInfo;
 import com.example.barotest.domain.member.Member;
 import com.example.barotest.infrastructure.member.MemberEntity;
 import lombok.AllArgsConstructor;
@@ -23,7 +26,9 @@ public class MemberRepositoryImpl implements IMemberRepository {
     }
 
     @Override
-    public Optional<Member> findByUserIdAndPassword(Long id, String password) {
-        return Optional.ofNullable(memberJpaRepository.findByUserIdAndPassword(id, password).toModel());
+    public Member findByUserIdAndPassword(Long id, String password) {
+        MemberEntity member = memberJpaRepository.findByUserIdAndPassword(id, password)
+            .orElseThrow(() -> new UserNotFoundException());
+        return member.toModel();
     }
 }
