@@ -1,6 +1,7 @@
 package com.example.barotest.feature.member.service;
 
 import com.example.barotest.common.exception.DuplicateUserIdException;
+import com.example.barotest.common.exception.UserNotFoundException;
 import com.example.barotest.domain.member.Member;
 import com.example.barotest.feature.member.controller.dto.MemberSigninRequest;
 import com.example.barotest.feature.member.controller.dto.MemberSignupRequest;
@@ -32,7 +33,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Long signup(MemberSignupRequest memberRequest) {
+    public void signup(MemberSignupRequest memberRequest) {
         Member member = Member.builder()
             .userId(memberRequest.userId())
             .password(memberRequest.password())
@@ -40,7 +41,7 @@ public class MemberService {
             .build();
 
         validationMember(member);
-        member.validate();
+        member.validatePassword();
 
         Member signUpMember = Member.builder()
             .userId(member.getUserId())
@@ -48,7 +49,7 @@ public class MemberService {
             .name(memberRequest.name())
             .build();
 
-        return memberRepository.save(signUpMember).getUserId();
+        memberRepository.save(signUpMember);
     }
 
     private String encodePassword(String password) {
@@ -63,15 +64,22 @@ public class MemberService {
 
     public String signin(MemberSigninRequest memberRequest) {
         Member signinMember = Member.builder()
-            .userId(memberRequest.id())
+            .userId(memberRequest.userId())
             .password(encodePassword(memberRequest.password()))
             .build();
-        Member member = memberRepository.findByUserIdAndPassword(signinMember.getUserId(), signinMember.getPassword());
+        Member member = memberRepository.findByUserId(signinMember.getUserId());
+        validatePassword(memberRequest.password(), member);
 
         return generateJwtToken(member.getUserId());
     }
 
-    private String generateJwtToken(Long userId) {
+    private void validatePassword(String inputPassword, Member member) {
+        if (!passwordEncoder.matches(inputPassword, member.getPassword())) {
+            throw new UserNotFoundException();
+        }
+    }
+
+    private String generateJwtToken(String userId) {
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
         Date expiredAt = Date.from(Instant.now().plus(Duration.ofDays(1L)));
         Claims claims = Jwts.claims();

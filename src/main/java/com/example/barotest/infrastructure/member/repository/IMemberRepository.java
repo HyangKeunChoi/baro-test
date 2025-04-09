@@ -5,7 +5,7 @@ import com.example.barotest.domain.member.Member;
 public interface IMemberRepository {
     Member save(Member member);
 
-    Boolean existsByUserId(Long id);
+    Boolean existsByUserId(String userId);
 
-    Member findByUserIdAndPassword(Long id, String password);
+    Member findByUserId(String userId);
 }

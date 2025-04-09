@@ -16,7 +16,7 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    private String userId;
     private String password;
     private String name;
 
@@ -31,9 +31,9 @@ public class MemberEntity {
 
     public Member toModel() {
         return new Member(
-                this.id,
-                this.password,
-                this.name
+            this.userId,
+            this.password,
+            this.name
         );
     }
 }

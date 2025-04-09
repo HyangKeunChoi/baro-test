@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Delivery {
     Long deliveryId;
     String deliveryName;
-    Long userId;
+    String userId;
     Status status;
     Address deliveryAddress;
     LocalDate createdAt;
@@ -20,7 +20,7 @@ public class Delivery {
     public Delivery(
         Long deliveryId,
         String deliveryName,
-        Long userId,
+        String userId,
         Status status,
         Address deliveryAddress,
         LocalDate createdAt,

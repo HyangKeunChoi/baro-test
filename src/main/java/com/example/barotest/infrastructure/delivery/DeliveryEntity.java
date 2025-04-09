@@ -21,7 +21,7 @@ public class DeliveryEntity extends AbstractEntity {
 
     private String deliveryName;
 
-    private Long userId;
+    private String userId;
 
     @Enumerated(EnumType.STRING)
     private Status status;

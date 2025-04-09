@@ -17,13 +17,13 @@ public class MemberRepositoryImpl implements IMemberRepository {
     }
 
     @Override
-    public Boolean existsByUserId(Long id) {
-        return memberJpaRepository.existsByUserId(id);
+    public Boolean existsByUserId(String userId) {
+        return memberJpaRepository.existsByUserId(userId);
     }
 
     @Override
-    public Member findByUserIdAndPassword(Long id, String password) {
-        MemberEntity member = memberJpaRepository.findByUserIdAndPassword(id, password)
+    public Member findByUserId(String userId) {
+        MemberEntity member = memberJpaRepository.findByUserId(userId)
             .orElseThrow(() -> new UserNotFoundException());
         return member.toModel();
     }

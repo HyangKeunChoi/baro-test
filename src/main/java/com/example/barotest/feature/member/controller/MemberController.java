@@ -8,20 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Validated
-@RestController("/api/v1/member")
+@RestController
+@RequestMapping("/api/v1/member")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<Long> signup(
+    public ResponseEntity signup(
         @Validated @RequestBody MemberSignupRequest memberRequest
     ) {
-        Long id = memberService.signup(memberRequest);
-        return ResponseEntity.ok().body(id);
+        memberService.signup(memberRequest);
+        return ResponseEntity.ok().build();
     }
 
     // 로그인

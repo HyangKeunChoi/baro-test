@@ -19,7 +19,7 @@ public class DeliveryService {
     private final IDeliveryRepository deliveryRepository;
 
     public List<Delivery> getDeliveries(
-        Long userId,
+        String userId,
         LocalDate searchStartDate,
         LocalDate searchEndDate
     ) {

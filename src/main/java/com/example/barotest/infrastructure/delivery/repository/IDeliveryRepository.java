@@ -9,7 +9,7 @@ public interface IDeliveryRepository {
     Delivery findById(Long id);
 
     List<Delivery> findByUserIdAndCreatedAtBetween(
-        Long userId,
+        String userId,
         LocalDate searchStartDate,
         LocalDate searchEndDate
     );

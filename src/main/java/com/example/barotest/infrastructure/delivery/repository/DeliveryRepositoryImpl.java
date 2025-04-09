@@ -24,7 +24,7 @@ public class DeliveryRepositoryImpl implements IDeliveryRepository {
     }
 
     @Override
-    public List<Delivery> findByUserIdAndCreatedAtBetween(Long userId, LocalDate searchStartDate, LocalDate searchEndDate) {
+    public List<Delivery> findByUserIdAndCreatedAtBetween(String userId, LocalDate searchStartDate, LocalDate searchEndDate) {
         List<DeliveryEntity> deliveryEntities = deliveryJpaRepository.findByUserIdAndCreatedAtBetween(
                 userId, searchStartDate, searchEndDate)
             .orElse(Collections.emptyList());

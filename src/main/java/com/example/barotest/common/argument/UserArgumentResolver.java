@@ -40,7 +40,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .build()
                 .parseClaimsJws(accessToken)
                 .getBody();
-            return claims.get("userId", Long.class);
+            return claims.get("userId", String.class);
         } catch (ExpiredJwtException e) {
             throw new Exception("Token has expired", e);
         } catch (IllegalArgumentException e) {
