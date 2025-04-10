@@ -11,6 +11,7 @@ public class SearchDateValidator implements ConstraintValidator<SearchDateRangeV
 
     private String startDateFieldName;
     private String endDateFieldName;
+    private static final int SEARCH_RESTRICT_DAY = 3;
 
     @Override
     public void initialize(SearchDateRangeValid constraintAnnotation) {
@@ -33,6 +34,6 @@ public class SearchDateValidator implements ConstraintValidator<SearchDateRangeV
         }
 
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-        return daysBetween < 3;
+        return daysBetween < SEARCH_RESTRICT_DAY;
     }
 }

@@ -18,7 +18,7 @@ public @interface SearchDateRangeValid {
 
     Class<? extends Payload>[] payload() default {};
 
-    String startDate(); // 시작일 필드명
+    String startDate(); // 검색 시작일 필드명
 
-    String endDate();   // 종료일 필드명
+    String endDate();   // 검색 종료일 필드명
 }

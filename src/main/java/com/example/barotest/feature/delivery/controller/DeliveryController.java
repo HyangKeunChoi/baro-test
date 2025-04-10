@@ -29,7 +29,6 @@ public class DeliveryController {
     @GetMapping
     public ResponseEntity<List<Delivery>> getDelivery(
         @User String userId,
-
         @Valid @ModelAttribute DeliverySearchRequest searchRequest
     ) {
         return ResponseEntity.ok().body(

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface DeliveryJpaRepository extends JpaRepository<DeliveryEntity, Long> {
     Optional<DeliveryEntity> findByDeliveryId(Long id);
+
     Optional<List<DeliveryEntity>> findByUserIdAndCreatedAtBetween(
         String userId,
         LocalDateTime searchStartDate,

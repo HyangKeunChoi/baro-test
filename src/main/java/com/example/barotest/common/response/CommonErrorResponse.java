@@ -10,8 +10,4 @@ import lombok.NoArgsConstructor;
 public class CommonErrorResponse {
     private String message;
     private ErrorInfo errorInfo;
-
-    public CommonErrorResponse(ErrorInfo errorInfo) {
-        this.errorInfo = errorInfo;
-    }
 }
