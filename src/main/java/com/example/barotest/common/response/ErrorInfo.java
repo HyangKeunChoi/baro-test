@@ -12,6 +12,7 @@ public enum ErrorInfo {
     USER_NOT_FOUND_ERROR(503, "유저를 찾을 수 없습니다."),
     INVALID_PARAMETER_ERROR(504, "파라미터가 올바르지 않습니다."),
     DELIVERY_ADDRESS_UPDATE_ERROR(505, "배송지 주소를 수정할 수 없습니다."),
+    DELIVERY_NOT_FOUND_ERROR(506, "배송지 주소를 찾을 수 없습니다."),
     ;
 
     private final int errorCode;

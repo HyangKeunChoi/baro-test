@@ -42,7 +42,7 @@ public class Delivery {
     public Delivery updateAddress(
         Address newAddress
     ) {
-        if (isPending()) throw new DeliveryStatusException();
+        if (!isPending()) throw new DeliveryStatusException();
         this.deliveryAddress = newAddress;
         return this;
     }

@@ -25,6 +25,7 @@ public class LogicExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<CommonErrorResponse> handleException(Exception e) {
         log.error(e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new CommonErrorResponse(e.getMessage(), ErrorInfo.INTERNAL_SERVER_ERROR));
     }
@@ -51,7 +52,7 @@ public class LogicExceptionHandler {
 
         StringBuilder errorMessage = new StringBuilder();
         e.getBindingResult().getAllErrors().forEach(error -> {
-            errorMessage.append(error.getDefaultMessage()).append("\n");
+            errorMessage.append(error.getDefaultMessage());
         });
 
         log.error(errorMessage.toString());

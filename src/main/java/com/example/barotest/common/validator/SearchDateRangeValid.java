@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = SearchDateValidator.class)
 public @interface SearchDateRangeValid {
@@ -17,4 +17,8 @@ public @interface SearchDateRangeValid {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String startDate(); // 시작일 필드명
+
+    String endDate();   // 종료일 필드명
 }

@@ -36,7 +36,8 @@ public class DeliveryService {
         Long id,
         DeliveryUpdateRequest deliveryUpdateRequest
     ) {
-        Delivery delivery = deliveryRepository.findById(id);
+        // TODO : 유저 user_id와 같이 조회 로직에 포함 필요
+        Delivery delivery = deliveryRepository.findByDeliveryId(id);
         Address newAddress = Address.builder()
             .street(deliveryUpdateRequest.getStreet())
             .city(deliveryUpdateRequest.getCity())

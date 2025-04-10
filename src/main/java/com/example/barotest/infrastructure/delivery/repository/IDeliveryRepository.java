@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IDeliveryRepository {
-    Delivery findById(Long id);
+    Delivery findByDeliveryId(Long id);
 
     List<Delivery> findByUserIdAndCreatedAtBetween(
         String userId,

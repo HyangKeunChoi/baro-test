@@ -1,11 +1,13 @@
 package com.example.barotest.infrastructure.delivery.repository;
 
+import com.example.barotest.common.exception.DeliveryNotFoundException;
 import com.example.barotest.domain.delivery.Delivery;
 import com.example.barotest.infrastructure.delivery.DeliveryEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,17 +18,20 @@ public class DeliveryRepositoryImpl implements IDeliveryRepository {
     private final DeliveryJpaRepository deliveryJpaRepository;
 
     @Override
-    public Delivery findById(Long id) {
-        DeliveryEntity deliveryEntity = deliveryJpaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Delivery not found"));
+    public Delivery findByDeliveryId(Long id) {
+        DeliveryEntity deliveryEntity = deliveryJpaRepository.findByDeliveryId(id)
+            .orElseThrow(() -> new DeliveryNotFoundException());
 
         return deliveryEntity.toModel();
     }
 
     @Override
     public List<Delivery> findByUserIdAndCreatedAtBetween(String userId, LocalDate searchStartDate, LocalDate searchEndDate) {
+        LocalDateTime searchStartDateTime = searchStartDate.atStartOfDay();
+        LocalDateTime searchEndDateTime = searchEndDate.atTime(23, 59, 59);
+
         List<DeliveryEntity> deliveryEntities = deliveryJpaRepository.findByUserIdAndCreatedAtBetween(
-                userId, searchStartDate, searchEndDate)
+                userId, searchStartDateTime, searchEndDateTime)
             .orElse(Collections.emptyList());
 
         return deliveryEntities.stream()

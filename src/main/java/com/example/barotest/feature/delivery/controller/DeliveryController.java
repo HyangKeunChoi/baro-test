@@ -1,17 +1,16 @@
 package com.example.barotest.feature.delivery.controller;
 
 import com.example.barotest.common.argument.User;
-import com.example.barotest.common.validator.SearchDateRangeValid;
 import com.example.barotest.domain.delivery.Delivery;
+import com.example.barotest.feature.delivery.controller.dto.DeliverySearchRequest;
 import com.example.barotest.feature.delivery.controller.dto.DeliveryUpdateRequest;
 import com.example.barotest.feature.delivery.service.DeliveryService;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Validated
@@ -31,16 +30,11 @@ public class DeliveryController {
     public ResponseEntity<List<Delivery>> getDelivery(
         @User String userId,
 
-        @RequestParam
-        @NotNull(message = "시작일은 null 일 수 없습니다.")
-        LocalDate searchStartDate,
-
-        @RequestParam
-        @NotNull(message = "종료일은 null 일 수 없습니다.")
-        @SearchDateRangeValid
-        LocalDate searchEndDate
+        @Valid @ModelAttribute DeliverySearchRequest searchRequest
     ) {
-        return ResponseEntity.ok().body(deliveryService.getDeliveries(userId, searchStartDate, searchEndDate));
+        return ResponseEntity.ok().body(
+            deliveryService.getDeliveries(userId, searchRequest.getSearchStartDate(), searchRequest.getSearchEndDate())
+        );
     }
 
     //    배달 주문 수정 (도착지 주소 변경)
